@@ -33,7 +33,6 @@ resource "null_resource" "name" {
     inline = [
       "sudo chmod +x /home/ubuntu/deployment.sh",
       "sh /home/ubuntu/deployment.sh",
-
     ]
   }
 
@@ -49,4 +48,8 @@ output "instance_ip" {
 
 output "instance_dns" {
   value = join("", ["Hostname: ", aws_instance.pebblepost.public_dns])
+}
+
+output "instance_url" {
+  value = join("", ["URL: ", "http://", aws_instance.pebblepost.public_dns, "/next-fibonacci?number=3"])
 }
