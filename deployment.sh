@@ -26,3 +26,9 @@ sudo gpasswd -a ubuntu docker
 # Clone the application server
 git clone https://github.com/carltonnorthern/next-fibonacci.git
 cd next-fibonacci
+
+# Build the image
+sudo docker build -t next-fibonacci .
+
+# Run the container
+sudo docker run -d --name next-fibonacci -p 80:80 next-fibonacci
