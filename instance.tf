@@ -46,10 +46,6 @@ output "instance_ip" {
   value = join("", ["IP: ", aws_instance.pebblepost.public_ip])
 }
 
-output "instance_dns" {
-  value = join("", ["Hostname: ", aws_instance.pebblepost.public_dns])
-}
-
 output "instance_url" {
   value = join("", ["URL: ", "http://", aws_instance.pebblepost.public_dns, "/next-fibonacci?number=3"])
 }
