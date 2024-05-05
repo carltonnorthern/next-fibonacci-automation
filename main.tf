@@ -19,7 +19,7 @@ resource "aws_vpc" "main" {
   enable_dns_support   = true
   enable_dns_hostnames = true
   tags = {
-    Name = "MainVPC"
+    Name = "main-vpc"
   }
 }
 
@@ -48,7 +48,7 @@ resource "aws_subnet" "main-private-1" {
 resource "aws_internet_gateway" "main-gateway" {
   vpc_id = aws_vpc.main.id
   tags = {
-    Name = "main"
+    Name = "main-gateway"
   }
 }
 
