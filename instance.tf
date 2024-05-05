@@ -7,8 +7,20 @@ resource "aws_instance" "pebblepost" {
 }
 
 resource "aws_key_pair" "terraform_ec2_key" {
-  key_name = "id_ed25519"
-  public_key = "${file("~/.ssh/id_ed25519.pub")}"
+  key_name = var.ssh_key_name
+  public_key = "${file(var.public_ssh_key_file)}"
+}
+
+variable "private_ssh_key_file" {
+  type     = string
+}
+
+variable "public_ssh_key_file" {
+  type     = string
+}
+
+variable "ssh_key_name" {
+  type     = string
 }
 
 # an empty resource block
@@ -18,7 +30,7 @@ resource "null_resource" "name" {
   connection {
     type        = "ssh"
     user        = "ubuntu"
-    private_key = file("~/.ssh/id_ed25519")
+    private_key = file(var.private_ssh_key_file)
     host        = aws_instance.pebblepost.public_ip
   }
 
