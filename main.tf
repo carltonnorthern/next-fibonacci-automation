@@ -23,8 +23,6 @@ resource "aws_vpc" "main" {
   instance_tenancy     = "default"
   enable_dns_support   = true
   enable_dns_hostnames = true
-
-  single_nat_gateway   = true
   tags = {
     Name = "main-vpc"
   }
@@ -125,29 +123,4 @@ resource "aws_route_table_association" "main-public-2-b" {
 resource "aws_route_table_association" "main-public-3-b" {
     subnet_id = "${aws_subnet.main-public-3.id}"
     route_table_id = "${aws_route_table.main-public.id}"
-}
-
-# Creating an Elastic IP for the NAT Gateway!
-resource "aws_eip" "nat-gateway-eip" {
-  depends_on = [
-    aws_route_table_association.RT-IG-Association
-  ]
-  vpc        = true
-}
-
-# Creating a NAT Gateway!
-resource "aws_nat_gateway" "nat-gateway" {
-
-  depends_on = [
-    aws_eip.nat-gateway-eip
-  ]
-
-  # Allocating the Elastic IP to the NAT Gateway!
-  allocation_id = aws_eip.nat-gateway-eip.id
-
-  # Associating it in the Public Subnet!
-  subnet_id = aws_subnet.subnet1.id
-  tags = {
-    Name = "main-nat-gateway"
-  }
 }
